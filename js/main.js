@@ -1,13 +1,14 @@
-const envelope=document.querySelector(".envelope");
+const envelope = document.querySelector("#envelope");
+const flap = document.querySelector(".flap");
 
-envelope.addEventListener("click",()=>{
+let opened = false;
 
-    envelope.style.transform="scale(.95)";
+envelope.addEventListener("click", () => {
 
-    setTimeout(()=>{
+    if (opened) return;
 
-        envelope.style.transform="scale(1)";
+    opened = true;
 
-    },150);
+    flap.style.transform = "rotateX(180deg)";
 
 });
