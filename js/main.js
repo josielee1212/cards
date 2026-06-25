@@ -1,13 +1,37 @@
-const params = new URLSearchParams(window.location.search);
 
+// =========================
+// 取得網址參數
+// =========================
+const params = new URLSearchParams(window.location.search);
 const user = params.get("user") || "jim";
 
+// =========================
+// 路徑設定
+// =========================
 const letterPath = `data/${user}/letter.txt`;
-const imagePath = `data/${user}/01.jpg`;
 
-console.log(letterPath);
-console.log(imagePath);
+// =========================
+// DOM
+// =========================
+const welcomePage = document.getElementById("welcome");
+const galleryPage = document.getElementById("gallery");
+const letterPage = document.getElementById("letter");
 
+const startBtn = document.getElementById("startBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+const mediaContainer = document.getElementById("mediaContainer");
+const letterContent = document.getElementById("letterContent");
+
+// =========================
+// 圖片設定
+// =========================
+let currentImage = 1;
+const maxImages = 3; // 先固定，下一版改成自動偵測
+
+// =========================
+// 讀取信件
+// =========================
 fetch(letterPath)
     .then(response => {
         if (!response.ok) {
@@ -15,40 +39,67 @@ fetch(letterPath)
         }
         return response.text();
     })
-   .then(text => {
-
-    const letterContent = document.getElementById("letterContent");
-
-    letterContent.innerText = text;
-
-})
+    .then(text => {
+        letterContent.innerText = text;
+    })
     .catch(error => {
-        console.log(error.message);
+        letterContent.innerText = error.message;
     });
 
+// =========================
+// 顯示圖片
+// =========================
+function showImage() {
 
+    const imagePath = `data/${user}/images/${String(currentImage).padStart(2, "0")}.jpg`;
 
+    const img = new Image();
 
-const welcomePage = document.getElementById("welcome");
-const galleryPage = document.getElementById("gallery");
-const letterPage = document.getElementById("letter");
+    img.onload = () => {
 
-const startBtn = document.getElementById("startBtn");
-const nextBtn = document.getElementById("nextBtn");
-const mediaContainer = document.getElementById("mediaContainer");
+        mediaContainer.innerHTML = "";
+        mediaContainer.appendChild(img);
 
+    };
+
+    img.onerror = () => {
+
+        galleryPage.style.display = "none";
+        letterPage.style.display = "block";
+
+    };
+
+    img.src = imagePath;
+
+}
+
+function nextImage() {
+
+    currentImage++;
+
+    showImage();
+
+}
+
+// =========================
+// 首頁 → 回憶
+// =========================
 startBtn.addEventListener("click", () => {
 
     welcomePage.style.display = "none";
     galleryPage.style.display = "block";
 
-    mediaContainer.innerHTML = `
-        <img src="${imagePath}" alt="Memory">
-    `;
+    currentImage = 1;
+
+    showImage();
 
 });
 
+// =========================
+// 下一步
+// =========================
 nextBtn.addEventListener("click", () => {
-    galleryPage.style.display = "none";
-    letterPage.style.display = "block";
+
+    nextImage();
+
 });
