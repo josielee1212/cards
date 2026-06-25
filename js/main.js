@@ -27,6 +27,7 @@ const letterContent = document.getElementById("letterContent");
 // 圖片設定
 // =========================
 let currentImage = 1;
+let currentVideo = 1;
 const maxImages = 3; // 先固定，下一版改成自動偵測
 
 // =========================
@@ -64,13 +65,40 @@ function showImage() {
 
     img.onerror = () => {
 
-        // 沒有下一張圖片
-        galleryPage.style.display = "none";
-        letterPage.style.display = "block";
+        currentVideo = 1;
+
+        showVideo();
 
     };
 
     img.src = imagePath;
+
+}
+
+function showVideo() {
+
+    const videoPath = `data/${user}/videos/${String(currentVideo).padStart(2, "0")}.mp4`;
+
+    const video = document.createElement("video");
+
+    video.src = videoPath;
+    video.controls = true;
+    video.style.maxWidth = "100%";
+    video.style.borderRadius = "16px";
+
+    video.onloadeddata = () => {
+
+        mediaContainer.innerHTML = "";
+        mediaContainer.appendChild(video);
+
+    };
+
+    video.onerror = () => {
+
+        galleryPage.style.display = "none";
+        letterPage.style.display = "block";
+
+    };
 
 }
 
@@ -101,6 +129,20 @@ startBtn.addEventListener("click", () => {
 // =========================
 nextBtn.addEventListener("click", () => {
 
-    nextImage();
+    const currentMedia = mediaContainer.querySelector("video");
+
+    if (currentMedia) {
+
+        currentVideo++;
+
+        showVideo();
+
+    } else {
+
+        currentImage++;
+
+        showImage();
+
+    }
 
 });
