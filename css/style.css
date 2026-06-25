@@ -1,13 +1,26 @@
+/* =========================
+   Reset
+========================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* =========================
+   Base
+========================= */
+
 body {
     font-family: "Noto Sans TC", sans-serif;
-    background: #F7F4EF;
     color: #2D3748;
+
+    background: linear-gradient(
+        180deg,
+        #FEFCF9 0%,
+        #F8F3EE 100%
+    );
 }
 
 .container {
@@ -24,27 +37,35 @@ body {
 .page {
     width: 100%;
     max-width: 700px;
-
     text-align: center;
 }
 
+/* =========================
+   Typography
+========================= */
+
 h1 {
     font-size: 42px;
-    margin-bottom: 20px;
     font-weight: 600;
+    margin-bottom: 20px;
 }
 
 h2 {
     font-size: 34px;
+    font-weight: 600;
     margin-bottom: 30px;
 }
 
 p {
     font-size: 20px;
+    line-height: 1.8;
     color: #6B7280;
     margin-bottom: 50px;
-    line-height: 1.8;
 }
+
+/* =========================
+   Button
+========================= */
 
 button {
     border: none;
@@ -52,33 +73,95 @@ button {
 
     padding: 16px 42px;
 
-    font-size: 18px;
-
     background: #C9A87A;
     color: white;
 
+    font-size: 18px;
+    font-weight: 600;
+
     cursor: pointer;
 
-    transition: .25s;
+    transition: all .25s ease;
 }
 
 button:hover {
-    transform: translateY(-2px);
     background: #B89467;
+    transform: translateY(-2px);
 }
+
+/* =========================
+   Content
+========================= */
 
 #mediaContainer,
 #letterContent {
     margin-top: 30px;
 }
 
-#mediaContainer img{
-    max-width:100%;
-    max-height:500px;
+#mediaContainer img,
+#mediaContainer video {
 
-    border-radius:16px;
+    width: 100%;
+    max-height: 60vh;
 
-    margin:30px 0;
+    object-fit: contain;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    border-radius: 18px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .15);
+
+    transition: .3s ease;
+}
+
+#letterContent {
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    text-align: left;
+
+    white-space: pre-wrap;
+
+    line-height: 2;
+
+    font-size: 18px;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 24px;
+    }
+
+    .page {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    p {
+        font-size: 18px;
+        margin-bottom: 36px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+    }
+
+    #letterContent {
+        font-size: 17px;
+    }
+
 }
