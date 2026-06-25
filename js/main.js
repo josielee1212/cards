@@ -64,6 +64,7 @@ function showImage() {
 
     img.onerror = () => {
 
+        // 沒有下一張圖片
         galleryPage.style.display = "none";
         letterPage.style.display = "block";
 
