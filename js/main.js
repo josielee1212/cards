@@ -1,14 +1,41 @@
-const envelope = document.querySelector("#envelope");
-const flap = document.querySelector(".flap");
+const params = new URLSearchParams(window.location.search);
 
-let opened = false;
+const user = params.get("user") || "jim";
 
-envelope.addEventListener("click", () => {
+const letterPath = `data/${user}/letter.txt`;
 
-    if (opened) return;
+console.log(letterPath);
 
-    opened = true;
+fetch(letterPath)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("找不到信件");
+        }
+        return response.text();
+    })
+    .then(text => {
+        console.log(text);
+    })
+    .catch(error => {
+        console.log(error.message);
+    });
 
-    flap.style.transform = "rotateX(180deg)";
 
+
+
+const welcomePage = document.getElementById("welcome");
+const galleryPage = document.getElementById("gallery");
+const letterPage = document.getElementById("letter");
+
+const startBtn = document.getElementById("startBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+startBtn.addEventListener("click", () => {
+    welcomePage.style.display = "none";
+    galleryPage.style.display = "block";
+});
+
+nextBtn.addEventListener("click", () => {
+    galleryPage.style.display = "none";
+    letterPage.style.display = "block";
 });
