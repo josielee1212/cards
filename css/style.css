@@ -16,11 +16,9 @@ body {
     font-family: "Noto Sans TC", sans-serif;
     color: #2D3748;
 
-    background: linear-gradient(
-        180deg,
-        #FEFCF9 0%,
-        #F8F3EE 100%
-    );
+    background: linear-gradient(180deg,
+            #FEFCF9 0%,
+            #F8F3EE 100%);
 }
 
 .container {
@@ -81,6 +79,8 @@ button {
 
     cursor: pointer;
 
+    margin-top: 30px;
+
     transition: all .25s ease;
 }
 
@@ -117,7 +117,7 @@ button:hover {
 
     max-width: 700px;
 
-    margin: 0 auto;
+    margin: 20px auto 0;
 
     text-align: left;
 
@@ -129,10 +129,69 @@ button:hover {
 }
 
 /* =========================
+   Goodbye
+========================= */
+
+#goodbyeContainer {
+    margin-bottom: 20px;
+}
+
+#goodbyeContainer video {
+
+    width: 100%;
+    max-width: 320px;
+
+    margin-bottom: 32px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .15);
+
+}
+
+#goodbyeText {
+
+    max-width: 520px;
+
+    margin: 0 auto 50px;
+
+    white-space: pre-wrap;
+
+    text-align: center;
+
+    line-height: 2.3;
+
+    font-size: 19px;
+
+}
+
+#restartBtn {
+
+    padding: 12px 28px;
+
+    font-size: 16px;
+
+    margin-top: 24px;
+
+}
+
+#galleryCaption{
+
+    margin-top:20px;
+
+    margin-bottom:10px;
+
+    font-size:18px;
+
+    color:#6B7280;
+
+}
+
+/* =========================
    Mobile
 ========================= */
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
 
     .container {
         padding: 24px;
@@ -148,6 +207,7 @@ button:hover {
 
     h2 {
         font-size: 26px;
+        margin-bottom: 18px;
     }
 
     p {
@@ -158,10 +218,15 @@ button:hover {
     button {
         width: 100%;
         padding: 14px;
+        margin-top: 20px;
     }
 
     #letterContent {
         font-size: 17px;
+    }
+
+    #goodbyeContainer video {
+        max-height: 75vh;
     }
 
 }

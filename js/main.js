@@ -3,12 +3,13 @@
 // 取得網址參數
 // =========================
 const params = new URLSearchParams(window.location.search);
-const user = params.get("user") || "jim";
+const user = params.get("user") || "everyone";
 
 // =========================
 // 路徑設定
 // =========================
 const letterPath = `data/${user}/letter.txt`;
+const goodbyeTextPath = `assets/goodbye.txt`;
 
 // =========================
 // DOM
@@ -16,6 +17,12 @@ const letterPath = `data/${user}/letter.txt`;
 const welcomePage = document.getElementById("welcome");
 const galleryPage = document.getElementById("gallery");
 const letterPage = document.getElementById("letter");
+const goodbyePage = document.getElementById("goodbye");
+
+const goodbyeBtn = document.getElementById("goodbyeBtn");
+const goodbyeContainer = document.getElementById("goodbyeContainer");
+const goodbyeText = document.getElementById("goodbyeText");
+const restartBtn = document.getElementById("restartBtn");
 
 const startBtn = document.getElementById("startBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -23,12 +30,32 @@ const nextBtn = document.getElementById("nextBtn");
 const mediaContainer = document.getElementById("mediaContainer");
 const letterContent = document.getElementById("letterContent");
 
+const welcomeTitle = document.getElementById("welcomeTitle");
+const welcomeSubtitle = document.getElementById("welcomeSubtitle");
+
+const galleryTitle = document.getElementById("galleryTitle");
+const letterTitle = document.getElementById("letterTitle");
+const galleryCaption = document.getElementById("galleryCaption");
+
+if (user === "everyone") {
+
+    welcomeTitle.innerText = "謝謝每一段相遇";
+    welcomeSubtitle.innerText = "這裡放了一些照片，和想說的一些話";
+
+    galleryTitle.innerText = "前往下一趟旅程之前";
+
+    letterTitle.innerText = "最後想說的話";
+
+    galleryCaption.style.display = "block";
+    galleryCaption.innerText = "沿途的一些片段";
+
+}
+
 // =========================
 // 圖片設定
 // =========================
 let currentImage = 1;
 let currentVideo = 1;
-const maxImages = 3; // 先固定，下一版改成自動偵測
 
 // =========================
 // 讀取信件
@@ -45,6 +72,20 @@ fetch(letterPath)
     })
     .catch(error => {
         letterContent.innerText = error.message;
+    });
+
+fetch(goodbyeTextPath)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("找不到 Goodbye 文字");
+        }
+        return response.text();
+    })
+    .then(text => {
+        goodbyeText.innerText = text;
+    })
+    .catch(error => {
+        goodbyeText.innerText = "";
     });
 
 // =========================
@@ -98,7 +139,31 @@ function showVideo() {
         galleryPage.style.display = "none";
         letterPage.style.display = "block";
 
+        goodbyeBtn.addEventListener("click", () => {
+
+            showGoodbye();
+
+        });
+
     };
+
+}
+
+function showGoodbye() {
+
+    letterPage.style.display = "none";
+    goodbyePage.style.display = "block";
+
+    goodbyeContainer.innerHTML = `
+    <video
+        src="assets/goodbye.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        style="width:100%; max-height:60vh; border-radius:18px;">
+    </video>
+`;
 
 }
 
@@ -144,5 +209,20 @@ nextBtn.addEventListener("click", () => {
         showImage();
 
     }
+
+
+});
+
+restartBtn.addEventListener("click", () => {
+
+    currentImage = 1;
+    currentVideo = 1;
+
+    goodbyePage.style.display = "none";
+    galleryPage.style.display = "block";
+
+    mediaContainer.innerHTML = "";
+
+    showImage();
 
 });

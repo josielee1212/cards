@@ -15,9 +15,9 @@
 
         <section id="welcome" class="page">
 
-            <h1>有一封信想送給你</h1>
+            <h1 id="welcomeTitle">有一封信想送給你</h1>
 
-            <p>這封信，只想留給你。</p>
+            <p id="welcomeSubtitle">謝謝你曾出現在這段旅程裡。</p>
 
             <button id="startBtn">打開這封信</button>
 
@@ -25,9 +25,11 @@
 
         <section id="gallery" class="page" style="display:none;">
 
-            <h2>一起走過的回憶</h2>
+            <h2 id="galleryTitle">一起走過的回憶</h2>
 
             <div id="mediaContainer"></div>
+
+            <p id="galleryCaption" style="display:none;"></p>
 
             <button id="nextBtn">下一步</button>
 
@@ -35,14 +37,26 @@
 
         <section id="letter" class="page" style="display:none;">
 
-            <h2>想對你說的話</h2>
+            <h2 id="letterTitle">想對你說的話</h2>
 
             <div id="letterContent"></div>
+
+            <button id="goodbyeBtn">下一步</button>
+
+        </section>
+
+        <section id="goodbye" class="page" style="display:none;">
+
+            <div id="goodbyeContainer"></div>
+
+            <div id="goodbyeText"></div>
+
+            <button id="restartBtn">📷 再看一次</button>
 
         </section>
 
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="js/main.js"></script>
 
 </body>
