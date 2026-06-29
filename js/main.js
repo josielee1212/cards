@@ -3,7 +3,7 @@
 // 取得網址參數
 // =========================
 const params = new URLSearchParams(window.location.search);
-const user = params.get("user") || "everyone7";
+const user = params.get("user") || "everyone";
 
 // =========================
 // 路徑設定
